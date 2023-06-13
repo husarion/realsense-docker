@@ -36,8 +36,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ros_distro: ["humble"]
-        platforms: "linux/amd64, linux/arm64"
+        include:
+
+          - dockerfile: Dockerfile
+
+            repo_name: ""
+
+            platforms: "linux/amd64, linux/arm64"
+
+            ros_distro: "humble"
 
     steps:
 
