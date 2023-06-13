@@ -37,6 +37,7 @@ jobs:
       fail-fast: false
       matrix:
         ros_distro: ["humble"]
+        platforms: "linux/amd64, linux/arm64"
 
     steps:
 
