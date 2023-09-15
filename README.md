@@ -26,7 +26,7 @@ git clone https://github.com/husarion/realsense-docker.git
 **2. Pulling the Docker images**
 
 ```bash
-cd realsense/demo
+cd realsense-docker/demo
 docker compose pull
 ```
 
