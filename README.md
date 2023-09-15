@@ -20,7 +20,7 @@ You can find all build and tested Dockerfile Images on [Husarion DockerHub](http
 **1. Clone repository**
 
 ```bash
-git clone docker compose pull
+git clone https://github.com/husarion/realsense-docker.git
 ```
 
 **2. Pulling the Docker images**
