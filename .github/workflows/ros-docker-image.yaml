@@ -32,19 +32,9 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix:
-        include:
-
-          - dockerfile: Dockerfile
-
-            repo_name: ""
-
-            platforms: "linux/amd64, linux/arm64"
-
-            ros_distro: "humble"
 
     steps:
 
@@ -56,12 +46,10 @@ jobs:
         with:
           dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
           dockerhub_token:  ${{ secrets.DOCKERHUB_TOKEN }}
-          main_branch_name: ros1
-          dockerfile: ${{ matrix.dockerfile }}
-          repo_name: ${{ matrix.repo_name }}
+          main_branch_name: ros2
           build_type: ${{ inputs.build_type }}
-          ros_distro: ${{ matrix.ros_distro }}
-          platforms: ${{ matrix.platforms }}
+          ros_distro: "humble"
+          platforms: "linux/amd64, linux/arm64"
           # variables important only for stable release
           target_distro: ${{ inputs.target_distro }}
           target_release: ${{ inputs.target_release }}
