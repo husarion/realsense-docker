@@ -31,7 +31,7 @@ RUN source /opt/ros/$ROS_DISTRO/setup.bash && \
     colcon build
 
 COPY ./healthcheck.sh /
-HEALTHCHECK --interval=10s --timeout=2s --start-period=5s --retries=5 \
+HEALTHCHECK --interval=10s --timeout=3s --start-period=5s --retries=5 \
     CMD ["/healthcheck.sh"]
 
 RUN echo $(cat /opt/ros/humble/share/realsense2_camera/package.xml | grep '<version>' | sed -r 's/.*<version>([0-9]+.[0-9]+.[0-9]+)<\/version>/\1/g') > /version.txt
