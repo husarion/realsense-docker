@@ -30,7 +30,9 @@ COPY ./healthcheck.cpp /ros2_ws/src/healthcheck_pkg/src/
 RUN source /opt/ros/$ROS_DISTRO/setup.bash && \
     colcon build
 
-COPY ./ros_entrypoint.sh /
+RUN sed -i '/test -f "\/ros2_ws\/install\/setup.bash" && source "\/ros2_ws\/install\/setup.bash"/a \
+        ros2 run healthcheck_pkg healthcheck_node &' \
+        /ros_entrypoint.sh
 
 COPY ./healthcheck.sh /
 HEALTHCHECK --interval=7s --timeout=2s  --start-period=5s --retries=5 \
