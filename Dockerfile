@@ -1,16 +1,9 @@
 ARG ROS_DISTRO=humble
 ARG PREFIX=
 
-FROM husarnet/ros:${PREFIX}${ROS_DISTRO}-ros-base
+FROM husarnet/ros:${PREFIX}${ROS_DISTRO}-ros-base AS pkg-builder
 
 SHELL ["/bin/bash", "-c"]
-
-RUN apt-get update && \
-    apt-get install -y \
-        ros-$ROS_DISTRO-realsense2-camera &&\
-    apt-get autoremove -y && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
 
 # Create health check package
 WORKDIR /ros2_ws
@@ -32,6 +25,20 @@ RUN source /opt/ros/$ROS_DISTRO/setup.bash && \
     echo $(cat /opt/ros/humble/share/realsense2_camera/package.xml | grep '<version>' | sed -r 's/.*<version>([0-9]+.[0-9]+.[0-9]+)<\/version>/\1/g') > /version.txt && \
     # Size optimalization
     rm -rf build log src
+
+FROM husarnet/ros:${PREFIX}${ROS_DISTRO}-ros-base
+
+WORKDIR /ros2_ws
+
+COPY --from=pkg-builder /ros2_ws /ros2_ws
+COPY --from=pkg-builder /version.txt /version.txt
+
+RUN apt-get update && \
+    apt-get install -y \
+        ros-$ROS_DISTRO-realsense2-camera &&\
+    apt-get autoremove -y && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # Run healthcheck in background
 RUN if [ -f "/ros_entrypoint.sh" ]; then \
