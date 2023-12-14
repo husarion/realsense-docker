@@ -47,4 +47,3 @@ RUN if [ -f "/ros_entrypoint.sh" ]; then \
 COPY ./healthcheck.sh /
 HEALTHCHECK --interval=5s --timeout=2s  --start-period=5s --retries=4 \
     CMD ["/healthcheck.sh"]
-
