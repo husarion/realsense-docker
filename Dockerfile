@@ -22,15 +22,14 @@ RUN mkdir src && cd src && \
             /healthcheck_ws/src/healthcheck_pkg/CMakeLists.txt && \
     mv /healthcheck.cpp /healthcheck_ws/src/healthcheck_pkg/src/ && \
     cd .. && \
-    colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release && \
-    rm -rf build log src
+    colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release
 
 ## =========================== Final Stage ===============================
 FROM husarnet/ros:${PREFIX}${ROS_DISTRO}-ros-core AS final_stage
 
 WORKDIR /ros2_ws
 
-COPY --from=healthcheck_builder /healthcheck_ws /healthcheck_ws
+COPY --from=healthcheck_builder /healthcheck_ws/install /healthcheck_ws/install
 
 RUN apt-get update && \
     apt-get install -y \
