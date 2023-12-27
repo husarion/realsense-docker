@@ -42,4 +42,3 @@ RUN entrypoint_file=$(if [ -f "/ros_entrypoint.sh" ]; then echo "/ros_entrypoint
 COPY ./healthcheck.sh /
 HEALTHCHECK --interval=2s --timeout=1s --start-period=20s --retries=1 \
     CMD ["/healthcheck.sh"]
-
