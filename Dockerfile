@@ -1,3 +1,4 @@
+ARG ROS_DISTRO=humble
 FROM ros:noetic-ros-core
 
 SHELL ["/bin/bash", "-c"]
@@ -9,4 +10,4 @@ RUN apt-get update  && \
     apt-get autoremove -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
-    echo $(cat /opt/ros/humble/share/realsense2_camera/package.xml | grep '<version>' | sed -r 's/.*<version>([0-9]+.[0-9]+.[0-9]+)<\/version>/\1/g') > /version.txt
+    echo $(cat /opt/ros/$ROS_DISTRO/share/realsense2_camera/package.xml | grep '<version>' | sed -r 's/.*<version>([0-9]+.[0-9]+.[0-9]+)<\/version>/\1/g') > /version.txt
