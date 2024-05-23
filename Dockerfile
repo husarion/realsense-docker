@@ -29,7 +29,7 @@ COPY ./healthcheck.cpp /ros2_ws/src/healthcheck_pkg/src/
 RUN source /opt/ros/$ROS_DISTRO/setup.bash && \
     colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release && \
     # Save version
-    echo $(cat /opt/ros/humble/share/realsense2_camera/package.xml | grep '<version>' | sed -r 's/.*<version>([0-9]+.[0-9]+.[0-9]+)<\/version>/\1/g') > /version.txt && \
+    echo $(cat /opt/ros/$ROS_DISTRO/share/realsense2_camera/package.xml | grep '<version>' | sed -r 's/.*<version>([0-9]+.[0-9]+.[0-9]+)<\/version>/\1/g') > /version.txt && \
     # Size optimalization
     rm -rf build log src
 
