@@ -2,7 +2,7 @@ version: '3'
 
 services:
   realsense:
-    image: husarion/realsense:humble
+    image: husarion/realsense:jazzy
     network_mode: host
     ipc: host
     tty: true
@@ -15,7 +15,7 @@ services:
     command: ros2 launch realsense2_camera rs_launch.py pointcloud.enable:=true
 
   rviz2:
-    image: husarion/rviz2:humble
+    image: husarion/rviz2:jazzy
     network_mode: host
     ipc: host
     volumes:
